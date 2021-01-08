@@ -32,6 +32,8 @@ I did we provide another Recommendations for example whitelisting the Public IP,
 what is Azure service Environment? 
 The ASE is a solution where you deploy one or more single-tenant Isolated tier app services plans in an environment that is connected to a virtual network. This means that every instance in the app service plan is already in the virtual network and can communicate directly with Azure virtual machines in the same network without needing any VPN or hybrid connections.
 
+ASE is suitable if you need an isolated deployment and offers much greater scalability and simpler networking
+
 ![image](https://user-images.githubusercontent.com/58148717/104043052-dda30e00-51a0-11eb-84e0-f4b38bfc9b67.png)
 
 
