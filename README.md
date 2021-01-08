@@ -36,6 +36,120 @@ ASE is suitable if you need an isolated deployment and offers much greater scala
 
 ![image](https://user-images.githubusercontent.com/58148717/104043052-dda30e00-51a0-11eb-84e0-f4b38bfc9b67.png)
 
+How to set it up?
+
+Before you setup the Azure Hybrid Connection you need the following information:
+
+You need to decide which computer you need to install the Hybrid Connection Manager on. The Hybrid Connections feature requires a relay agent in the network that hosts your Hybrid Connection endpoint. That relay agent is called the Hybrid Connection Manager (HCM). The computer that will host the HCM should be able to resolve the destination service hostname or fully qualified domain name, and should be able to connect to that TCP service on a specific port. It is recommended to install the HCM in the DMZ of your network, but it is not mandatory. Please note that if you install the HCM in the DMZ you might need to open ports on the internal firewall, and not the external company firewall. HCM can be installed on Windows Server 2012 or later. It also works on Windows 10. Linux support is coming soon
+
+You need the SQL Server hostname or fully qualified domain name and the port number for the SQL Server service. The default port for SQL Server is 1433
+
+Configuring the Hybrid Connection
+
+![image](https://user-images.githubusercontent.com/58148717/104045371-11cbfe00-51a4-11eb-92e9-4991cf61d095.png)
+
+![image](https://user-images.githubusercontent.com/58148717/104045449-31632680-51a4-11eb-8b51-f842a39ecf6c.png)
+
+IMPORTANT NOTE: App Service Hybrid Connections are only available in Basic, Standard, Premium, and Isolated pricing SKUs. There are limits tied to the pricing plan. If you have an account through your Visual Studio subscription, you usually have a limit of 5 hybrid connections. In my case I can create up-to 25 hybrid connections for my account as you can see in the screenshot above.
+
+Pricing plan	Number of Hybrid Connections usable in the plan
+Basic	5
+Standard	25
+Premium	200
+Isolated	200
+
+Click on the Add hybrid connection as shown in the previous screenshot
+
+In the Create new hybrid connection blade, you must fill in the following fields for SQL server hybrid connection:
+
+Hybrid connection name: Subscription unique reference name for the hybrid connection.
+Endpoint Host: Hostname for the endpoint which must resolve on the host where the Hybrid Connection Manager (HCM) is installed.
+Endpoint Port: The destination port for the hybrid connection for that service.
+Servicebus namespace: hybrid connection is built using service bus namespaces which are used as containers for messaging. In my case I want to create a new Service Bus namespace.
+Location: choose the closest region to your service for less latency.
+Name: Service Bus namespace name (if you are creating a new Service Bus namespace). This namespace must be unique in Azure and not just your subscription.
+
+Once you click on OK button, Azure will start creating your hybrid connection. Notice that after creation the status of the hybrid connection is “Not connected” in the screenshot below. This is okay as we did not deploy the HCM or establish the connectivity yet.
+
+![image](https://user-images.githubusercontent.com/58148717/104045809-b9493080-51a4-11eb-9590-b1013241147f.png)
+
+Add a new hybrid connection for the SQL Server:
+
+![image](https://user-images.githubusercontent.com/58148717/104045905-da118600-51a4-11eb-9492-70a4f14a8cac.png)
+
+To complete our hybrid connection setup, we must download and install the Hybrid Connection Manager (HCM) from the link in the portal:
+
+![image](https://user-images.githubusercontent.com/58148717/104045959-f57c9100-51a4-11eb-981c-9bcdd670107a.png)
+
+Once you have downloaded the package, run it and perform following steps:
+
+![image](https://user-images.githubusercontent.com/58148717/104046021-104f0580-51a5-11eb-9520-7930c7e6f6e9.png)
+
+The following window will be shown:
+
+![image](https://user-images.githubusercontent.com/58148717/104046101-2c52a700-51a5-11eb-9b28-ce58895be7db.png)
+
+Click on the Add a new Hybrid Connection link, login to your Azure subscription and choose the subscription that you created the hybrid connection under
+
+Highlight both hybrid connections and click on the Save button, and then you should see the next window. Please note that the AZURE STATUS column is “Not Connected“.
+
+To change the status to connected you either need to restart the Azure Hybrid Connection Manager Service or reboot your computer:
+
+![image](https://user-images.githubusercontent.com/58148717/104046266-6de35200-51a5-11eb-80d9-684fe458b4f7.png)
+
+Here is the hybrid connection status in the Azure Portal after the service restart or computer reboot
+
+![image](https://user-images.githubusercontent.com/58148717/104046427-aedb6680-51a5-11eb-8770-038aea21054b.png)
+
+last dont forget to add the connection strings to code base. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
